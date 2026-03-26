@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aditee Kulkarni</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #111110;
+      --surface:   #1A1A18;
+      --surface2:  #222220;
+      --surface3:  #2A2A27;
+      --ink:       #F0EDE8;
+      --ink-mid:   #B8B4AE;
+      --ink-muted: #78746E;
+      --terra:     #B87A8E;
+      --terra-dim: rgba(184,122,142,0.15);
+      --sage:      #8B9E88;
+      --sage-dim:  rgba(139,158,136,0.15);
+      --gold-dim:  rgba(201,169,110,0.15);
+      --gold:      #C9A96E;
+      --border:    rgba(240,237,232,0.07);
+      --border2:   rgba(240,237,232,0.11);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── PAGE SHELL ── */
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+    .topbar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .topbar-name em { color: var(--terra); font-style: italic; }
+    .topbar-bio {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-top: 0.25rem;
+      line-height: 1.5;
+    }
+    .topbar-links { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+    .topbar-links a {
+      font-size: 0.775rem;
+      color: var(--terra);
+      transition: opacity 0.2s;
+    }
+    .topbar-links a:hover { opacity: 0.7; }
+
+    /* NAV */
+    .topbar-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: flex-end; }
+    .topbar-nav a {
+      font-size: 0.775rem;
+      color: var(--ink-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .topbar-nav a:hover, .topbar-nav a.active {
+      color: var(--ink);
+      border-color: var(--border2);
+      background: var(--surface2);
+    }
+
+    /* ── BENTO GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── BASE TILE ── */
+    .tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      overflow: hidden;
+    }
+    .tile:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+    }
+
+    /* column spans */
+    .col-4  { grid-column: span 4; }
+    .col-5  { grid-column: span 5; }
+    .col-6  { grid-column: span 6; }
+    .col-7  { grid-column: span 7; }
+    .col-8  { grid-column: span 8; }
+    .col-12 { grid-column: span 12; }
+
+    /* ── TILE ATOMS ── */
+    .t-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .t-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+    .t-title-lg {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .t-body {
+      font-size: 0.825rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+    }
+    .t-muted { color: var(--ink-muted); }
+
+    .badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 100px;
+      margin-top: 0.75rem;
+    }
+    .badge-sage  { background: var(--sage-dim);  color: var(--sage); }
+    .badge-terra { background: var(--terra-dim);  color: var(--terra); }
+    .badge-gold  { background: var(--gold-dim);   color: var(--gold); }
+
+    .tags { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      background: var(--surface3);
+      color: var(--ink-muted);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── HERO TILE ── */
+    .tile-hero {
+      position: relative;
+      overflow: hidden;
+    }
+    .tile-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(184,122,142,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-greeting {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--terra);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.6rem;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.9rem;
+    }
+    .tw { color: var(--terra); font-style: italic; }
+    .tw-cur { color: var(--terra); animation: blink 0.75s step-end infinite; }
+
+    /* ── GLANCE TILE ── */
+    .glance-rows { display: flex; flex-direction: column; gap: 0; }
+    .glance-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+    .glance-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .glance-row:first-child { padding-top: 0; }
+    .g-key { color: var(--ink-muted); }
+    .g-val { color: var(--ink); font-weight: 500; }
+    .pulse-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--sage);
+      border-radius: 50%;
+      margin-right: 0.35rem;
+      animation: pulse 2s infinite;
+      vertical-align: middle;
+    }
+
+    /* ── NOW TILE ── */
+    .now-item {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+      align-items: start;
+    }
+    .now-item:first-child { padding-top: 0; }
+    .now-item:last-child  { border-bottom: none; padding-bottom: 0; }
+    .now-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.2rem;
+    }
+    .now-title { font-size: 0.825rem; font-weight: 500; margin-bottom: 0.15rem; }
+    .now-desc  { font-size: 0.775rem; color: var(--ink-muted); line-height: 1.6; }
+
+    /* ── PROJECT TILES ── */
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.9rem;
+      font-size: 0.775rem;
+      color: var(--terra);
+      transition: gap 0.18s;
+    }
+    .project-link:hover { gap: 0.5rem; }
+
+    /* ── WORK LIST ── */
+    .work-entry {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1rem;
+    }
+    .work-entry:first-child { padding-top: 0; }
+    .work-entry:last-child  { border-bottom: none; padding-bottom: 0; }
+    .work-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      padding-top: 0.15rem;
+    }
+    .work-co { color: var(--terra); margin-top: 0.2rem; font-size: 0.65rem; }
+    .work-role { font-size: 0.825rem; font-weight: 500; margin-bottom: 0.2rem; }
+    .work-desc { font-size: 0.775rem; color: var(--ink-muted); line-height: 1.65; }
+
+    /* ── READING LIST ── */
+    .read-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 0.75rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .read-item:first-child { padding-top: 0; }
+    .read-item:last-child  { border-bottom: none; padding-bottom: 0; }
+    .read-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      padding-top: 0.15rem;
+    }
+    .read-title  { font-size: 0.825rem; font-weight: 500; margin-bottom: 0.1rem; }
+    .read-author { font-size: 0.75rem; color: var(--ink-muted); margin-bottom: 0.25rem; }
+    .read-note   { font-size: 0.775rem; color: var(--ink-mid); line-height: 1.65; margin-bottom: 0.35rem; }
+
+    /* ── BEYOND LIST ── */
+    .beyond-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 0.75rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .beyond-item:first-child { padding-top: 0; }
+    .beyond-item:last-child  { border-bottom: none; padding-bottom: 0; }
+    .beyond-num  { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ink-muted); padding-top: 0.15rem; }
+    .beyond-title { font-size: 0.825rem; font-weight: 500; margin-bottom: 0.15rem; }
+    .beyond-note  { font-size: 0.775rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 0.3rem; }
+
+    /* ── SKILLS ── */
+    .skill-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.25rem; }
+    .skill-chip {
+      font-size: 0.775rem;
+      color: var(--ink-mid);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+    }
+
+    /* ── CONTACT TILE ── */
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.825rem;
+      color: var(--ink-mid);
+      transition: color 0.2s;
+    }
+    .contact-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-link:hover { color: var(--terra); }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0.25rem 0 0.75rem;
+      scroll-margin-top: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .col-4, .col-5, .col-6, .col-7, .col-8 { grid-column: span 12; }
+      .topbar { flex-direction: column; }
+      .topbar-nav { justify-content: flex-start; }
+      .work-entry { grid-template-columns: 1fr; gap: 0.25rem; }
+      .now-item { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div>
+      <p class="topbar-name">Aditee <em>Kulkarni</em></p>
+      <p class="topbar-bio">Scientist · Strategist · Perpetual learner</p>
+      <div class="topbar-links">
+        <a href="mailto:curiouslyaditee@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/aditee-kulkarni/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <nav class="topbar-nav">
+      <a href="#about" class="active">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#work">Work</a>
+      <a href="#reading">Reading</a>
+      <a href="#beyond">Beyond</a>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <div class="section-divider" id="about">About</div>
+  <div class="grid">
+
+    <!-- Hero -->
+    <div class="tile tile-hero col-7">
+      <p class="hero-greeting">Hi, I am Aditee 👋</p>
+      <h1 class="hero-headline">Always <span class="tw" id="tw"></span><span class="tw-cur">|</span></h1>
+      <p class="t-body">
+        Integrated dual degree at BITS Pilani (Biological Sciences + Chemical Engineering), then product management at a startup and a streaming giant, and now a Master's in Biotechnology at SJSU. I have always been pulled between the rigorous world of science and the messy, human world of how things get built. That tension is what I work from.
+      </p>
+    </div>
+
+    <!-- Glance -->
+    <div class="tile col-5">
+      <p class="t-label">At a glance</p>
+      <div class="glance-rows">
+        <div class="glance-row">
+          <span class="g-key">Location</span>
+          <span class="g-val">San Jose, CA</span>
+        </div>
+        <div class="glance-row">
+          <span class="g-key">Program</span>
+          <span class="g-val">MBT @ SJSU</span>
+        </div>
+        <div class="glance-row">
+          <span class="g-key">Background</span>
+          <span class="g-val">BITS Pilani</span>
+        </div>
+        <div class="glance-row">
+          <span class="g-key">Status</span>
+          <span class="g-val"><span class="pulse-dot"></span>Open to internships</span>
+        </div>
+        <div class="glance-row">
+          <span class="g-key">Updated</span>
+          <span class="g-val">March 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Now -->
+    <div class="tile col-12">
+      <p class="t-label" style="margin-bottom:0.9rem;">Right now</p>
+      <div style="display:grid; grid-template-columns: repeat(5,1fr); gap:0.75rem;">
+
+        <div style="border-right:1px solid var(--border); padding-right:0.75rem;">
+          <p class="now-type">Currently doing</p>
+          <p class="now-title">MBT at SJSU</p>
+          <p class="now-desc">Regulatory affairs, supply chain, and biotech business strategy.</p>
+          <span class="badge badge-sage">Active</span>
+        </div>
+
+        <div style="border-right:1px solid var(--border); padding-right:0.75rem;">
+          <p class="now-type">Currently presenting</p>
+          <p class="now-title">MBAA 2026</p>
+          <p class="now-desc">Two Iovance case studies at Session 8C. SCR scholarship recipient.</p>
+          <span class="badge badge-sage">Active</span>
+        </div>
+
+        <div style="border-right:1px solid var(--border); padding-right:0.75rem;">
+          <p class="now-type">Upcoming</p>
+          <p class="now-title">Student Research Day 2026</p>
+          <p class="now-desc">Poster presentation on SRA-RAG at SJSU's annual COS research showcase. April 17, 2026.</p>
+          <span class="badge badge-gold">Upcoming</span>
+        </div>
+
+        <div>
+          <p class="now-type">Looking for</p>
+          <p class="now-title">Biotech internships</p>
+          <p class="now-desc">PM, regulatory affairs, and operations in life sciences.</p>
+          <span class="badge badge-terra">Open</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════ PROJECTS ═══════════════ -->
+  <div class="section-divider" id="projects">Projects — things built out of curiosity</div>
+  <div class="grid">
+
+    <div class="tile col-6">
+      <div class="tags">
+        <span class="tag">Bioinformatics</span>
+        <span class="tag">RAG</span>
+        <span class="tag">Python</span>
+      </div>
+      <p class="t-title" style="margin-top:0.6rem;">SRA-RAG: Genomic Search Engine</p>
+      <p class="t-body">A Retrieval-Augmented Generation system for querying the NCBI Sequence Read Archive using natural language — built in collaboration with Dr. Lee's lab and a teammate. Ask it "What mouse studies used RNA-seq?" and it finds them. Currently in progress.</p>
+      <a href="mailto:curiouslyaditee@gmail.com" class="project-link">Ask me about this →</a>
+    </div>
+
+    <div class="tile col-6">
+      <div class="tags">
+        <span class="tag">Biotech Strategy</span>
+        <span class="tag">Regulatory</span>
+        <span class="tag">Case Study</span>
+      </div>
+      <p class="t-title" style="margin-top:0.6rem;">Iovance — Amtagvi Commercialization</p>
+      <p class="t-body">Two case studies on the post-FDA-approval commercialization of Amtagvi, the first TIL cell therapy approved in the US. Covers regulatory science, supply chain complexity, and market adoption. Presented at MBAA 2026.</p>
+      <a href="mailto:curiouslyaditee@gmail.com" class="project-link">Ask me about this →</a>
+    </div>
+
+    <div class="tile col-6">
+      <div class="tags">
+        <span class="tag">Supply Chain</span>
+        <span class="tag">Operations</span>
+        <span class="tag">Market Modeling</span>
+      </div>
+      <p class="t-title" style="margin-top:0.6rem;">Cancer Treatment Market & Supply Chain Model</p>
+      <p class="t-body">Designed a supply chain for a cancer treatment product — market sizing, demand forecasting, and logistics planning. Applied operations management frameworks to a real biotech context, connecting science to operational feasibility.</p>
+      <a href="mailto:curiouslyaditee@gmail.com" class="project-link">Ask me about this →</a>
+    </div>
+
+    <div class="tile col-6">
+      <div class="tags">
+        <span class="tag">AR</span>
+        <span class="tag">Event Design</span>
+        <span class="tag">Creative Tech</span>
+      </div>
+      <p class="t-title" style="margin-top:0.6rem;">India's First Online College Festival</p>
+      <p class="t-body">As Secretary of BITS Pilani's Creative Activities Club, helped design and host the institution's first fully virtual festival — including an augmented reality gallery. A good reminder that PM and creativity are not opposites.</p>
+      <a href="mailto:curiouslyaditee@gmail.com" class="project-link">Ask me about this →</a>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════ WORK ═══════════════ -->
+  <div class="section-divider" id="work">CV & Work</div>
+  <div class="grid">
+
+    <div class="tile col-8">
+      <p class="t-label" style="margin-bottom:0.9rem;">Experience</p>
+      <div class="work-entry">
+        <div>
+          <p class="work-period">Aug 2025 – Present</p>
+          <p class="work-co">SJSU</p>
+        </div>
+        <div>
+          <p class="work-role">Graduate Student — Master of Biotechnology</p>
+          <p class="work-desc">Regulatory affairs (FDA pathways, GMP, 510(k)), operations & supply chain, and biotech business strategy. Co-authoring case studies on TIL cell therapy commercialization.</p>
+        </div>
+      </div>
+      <div class="work-entry">
+        <div>
+          <p class="work-period">Mar 2026 – Present</p>
+          <p class="work-co">RAPS</p>
+        </div>
+        <div>
+          <p class="work-role">SF Bay Area Chapter Ambassador</p>
+          <p class="work-desc">Student ambassador for the Regulatory Affairs Professionals Society. Community outreach, chapter engagement, drafting the quarterly newsletter, and designing promotional materials for member communications.</p>
+        </div>
+      </div>
+      <div class="work-entry">
+        <div>
+          <p class="work-period">Jul 2023 – Jan 2025</p>
+          <p class="work-co">Probus Smart Things</p>
+        </div>
+        <div>
+          <p class="work-role">Associate Product Manager</p>
+          <p class="work-desc">Owned product roadmaps, wrote PRDs, built wireframes, and shipped features. Bridged engineering and business, translating user needs into product decisions.</p>
+        </div>
+      </div>
+      <div class="work-entry">
+        <div>
+          <p class="work-period">Jan 2023 – Jul 2023</p>
+          <p class="work-co">JioCinema</p>
+        </div>
+        <div>
+          <p class="work-role">Program Management Intern</p>
+          <p class="work-desc">Program coordination at one of India's largest streaming platforms. Stakeholder management and delivery tracking at scale.</p>
+        </div>
+      </div>
+      <div class="work-entry">
+        <div>
+          <p class="work-period">2022</p>
+          <p class="work-co">Udaan</p>
+        </div>
+        <div>
+          <p class="work-role">Business Analyst Intern</p>
+          <p class="work-desc">First industry role at a Series B agri-commerce marketplace. Business metrics, cross-functional teamwork, and accurate impact-driven analysis — all from scratch.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="grid-column: span 4; display:flex; flex-direction:column; gap:0.75rem;">
+      <div class="tile" style="flex:1;">
+        <p class="t-label">Education</p>
+        <p class="t-body" style="margin-bottom:0.6rem;"><strong style="color:var(--ink);">SJSU</strong> — M.S. Biotechnology<br><span class="t-muted">2025 – 2027</span></p>
+        <p class="t-body"><strong style="color:var(--ink);">BITS Pilani</strong> — M.Sc. Biological Sciences + B.E. Chemical Engineering<br><span class="t-muted">Integrated Dual Degree</span></p>
+      </div>
+      <div class="tile" style="flex:1;">
+        <p class="t-label">What I am good at</p>
+        <div class="skill-chips" style="margin-top:0.5rem;">
+          <span class="skill-chip">Project management</span>
+          <span class="skill-chip">Regulatory affairs</span>
+          <span class="skill-chip">Biotech strategy</span>
+          <span class="skill-chip">Product thinking</span>
+          <span class="skill-chip">Supply chain</span>
+          <span class="skill-chip">Asking the right questions</span>
+        </div>
+      </div>
+      <div class="tile">
+        <p class="t-label">Get in touch</p>
+        <div class="contact-link" onclick="window.location='mailto:curiouslyaditee@gmail.com'">
+          <span>✉</span> curiouslyaditee@gmail.com
+        </div>
+        <a href="https://www.linkedin.com/in/aditee-kulkarni/" target="_blank" class="contact-link">
+          <span>in</span> LinkedIn
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════ READING ═══════════════ -->
+  <div class="section-divider" id="reading">Reading — always working through something</div>
+  <div class="grid">
+
+    <div class="tile col-6">
+      <p class="t-label" style="margin-bottom:0.9rem;">On my nightstand</p>
+      <div class="read-item">
+        <span class="read-num">01</span>
+        <div>
+          <p class="read-title">Thinking, Fast and Slow</p>
+          <p class="read-author">Daniel Kahneman</p>
+          <p class="read-note">How our brains actually make decisions — and how often they get it wrong. Feels relevant to everything.</p>
+          <div class="tags"><span class="tag">Neuroscience</span><span class="tag">Behaviour</span><span class="tag">Currently Reading</span></div>
+        </div>
+      </div>
+      <div class="read-item">
+        <span class="read-num">02</span>
+        <div>
+          <p class="read-title">The Gene: An Intimate History</p>
+          <p class="read-author">Siddhartha Mukherjee</p>
+          <p class="read-note">Science writing that reads like a novel. A sweeping history of genetics that makes you feel the weight of what we have discovered.</p>
+          <div class="tags"><span class="tag">Genetics</span><span class="tag">Science History</span></div>
+        </div>
+      </div>
+      <div class="read-item">
+        <span class="read-num">03</span>
+        <div>
+          <p class="read-title">The Checklist Manifesto</p>
+          <p class="read-author">Atul Gawande</p>
+          <p class="read-note">A surgeon making the case for checklists. Deceptively simple premise, genuinely profound implications for how complex systems avoid failure.</p>
+          <div class="tags"><span class="tag">Operations</span><span class="tag">Medicine</span><span class="tag">Systems</span></div>
+        </div>
+      </div>
+      <div class="read-item">
+        <span class="read-num">04</span>
+        <div>
+          <p class="read-title">When Breath Becomes Air</p>
+          <p class="read-author">Paul Kalanithi</p>
+          <p class="read-note">A neurosurgeon writing about mortality. One of those books that sits with you long after you finish it.</p>
+          <div class="tags"><span class="tag">Memoir</span><span class="tag">Medicine</span></div>
+        </div>
+      </div>
+      <div class="read-item">
+        <span class="read-num">05</span>
+        <div>
+          <p class="read-title">The Innovator's Dilemma</p>
+          <p class="read-author">Clayton Christensen</p>
+          <p class="read-note">Why good companies fail and why disruption is so hard to see from the inside — especially relevant to how biotech companies scale.</p>
+          <div class="tags"><span class="tag">Strategy</span><span class="tag">Innovation</span><span class="tag">To Read</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ BEYOND ═══════════════ -->
+    <div class="tile col-6" id="beyond">
+      <p class="t-label" style="margin-bottom:0.9rem;">Beyond work — the stuff that makes me, me</p>
+      <div class="beyond-item">
+        <span class="beyond-num">01</span>
+        <div>
+          <p class="beyond-title">Korean — fluent</p>
+          <p class="beyond-note">Speak, read, and write. Started from zero. Best proof I have that consistency beats talent.</p>
+          <div class="tags"><span class="tag">Languages</span><span class="tag">Fluent</span></div>
+        </div>
+      </div>
+      <div class="beyond-item">
+        <span class="beyond-num">02</span>
+        <div>
+          <p class="beyond-title">Japanese — beginner</p>
+          <p class="beyond-note">Actively learning. One language was apparently not enough.</p>
+          <div class="tags"><span class="tag">Languages</span><span class="tag">In Progress</span></div>
+        </div>
+      </div>
+      <div class="beyond-item">
+        <span class="beyond-num">03</span>
+        <div>
+          <p class="beyond-title">Chess</p>
+          <p class="beyond-note">Picked it up this year. Still losing a lot. Learning even more.</p>
+          <div class="tags"><span class="tag">2026 goal</span></div>
+        </div>
+      </div>
+      <div class="beyond-item">
+        <span class="beyond-num">04</span>
+        <div>
+          <p class="beyond-title">Swimming</p>
+          <p class="beyond-note">Probably the best way to think through a hard problem.</p>
+          <div class="tags"><span class="tag">Movement</span></div>
+        </div>
+      </div>
+      <div class="beyond-item">
+        <span class="beyond-num">05</span>
+        <div>
+          <p class="beyond-title">Hiking</p>
+          <p class="beyond-note">The Bay Area has no shortage of good trails — always exploring.</p>
+          <div class="tags"><span class="tag">Outdoors</span></div>
+        </div>
+      </div>
+      <div class="beyond-item">
+        <span class="beyond-num">06</span>
+        <div>
+          <p class="beyond-title">Discovering new cafes</p>
+          <p class="beyond-note">Always hunting for a good flat white and decent wifi. San Jose has more hidden gems than people think.</p>
+          <div class="tags"><span class="tag">Food</span><span class="tag">San Jose</span></div>
+        </div>
+      </div>
+      <div class="beyond-item">
+        <span class="beyond-num">07</span>
+        <div>
+          <p class="beyond-title">Reading about how brains work</p>
+          <p class="beyond-note">Neuroscience, behavioral psychology, decision-making — fascinated by why people do what they do. Brains are weird and wonderful.</p>
+          <div class="tags"><span class="tag">Neuroscience</span><span class="tag">Psychology</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Made with curiosity in San Jose, CA · © 2026 Aditee Kulkarni</footer>
+
+</div>
+
+<script>
+  // Typewriter
+  const words = ['curious.', 'learning.', 'building.'];
+  const tw = document.getElementById('tw');
+  let wi = 0, ci = 0, del = false;
+  function type() {
+    const w = words[wi];
+    if (!del) {
+      tw.textContent = w.slice(0, ++ci);
+      if (ci === w.length) { del = true; setTimeout(type, 1500); return; }
+    } else {
+      tw.textContent = w.slice(0, --ci);
+      if (ci === 0) { del = false; wi = (wi + 1) % words.length; }
+    }
+    setTimeout(type, del ? 55 : 90);
+  }
+  setTimeout(type, 400);
+
+  // Nav active on scroll
+  const secs = document.querySelectorAll('.section-divider[id]');
+  const links = document.querySelectorAll('.topbar-nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    links.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
