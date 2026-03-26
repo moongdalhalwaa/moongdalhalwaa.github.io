@@ -1,919 +1,618 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aditee Kulkarni</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --cream: #FAF7F2;
-      --warm-white: #F2EDE4;
-      --ink: #1C1917;
-      --ink-light: #44403C;
-      --ink-muted: #78716C;
-      --blush: #E8C4B0;
-      --terracotta: #C17A5A;
-      --sage: #8B9E88;
-      --gold: #C9A96E;
-      --border: rgba(28,25,23,0.09);
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aditee Kulkarni</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:   #FDF8EF;
+  --paper2:  #F5EDD8;
+  --paper3:  #EDE3C8;
+  --ink:     #1A1208;
+  --ink-dim: #4A3820;
+  --rose:    #D4607A;
+  --sage:    #5A9E6E;
+  --gold:    #E8A020;
+  --sky:     #5B9BD5;
+  --gap:     6px;
+  --bdr:     2.5px solid var(--ink);
+  --radius:  10px;
+  --fh: 'Playfair Display', serif;
+  --fb: 'DM Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #E8DFC8; font-family: var(--fb); color: var(--ink); font-size: 14px; line-height: 1.6; min-height: 100vh; }
+.page { max-width: 1100px; margin: 0 auto; padding: var(--gap); display: flex; flex-direction: column; gap: var(--gap); min-height: 100vh; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+/* PANEL */
+.panel { background: var(--paper); border: var(--bdr); border-radius: var(--radius); padding: 22px 24px 20px; position: relative; box-shadow: 3px 3px 0px var(--ink); }
+.panel.dark { background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0px rgba(0,0,0,0.4); }
+.panel.mid  { background: var(--paper2); }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.75;
-      overflow-x: hidden;
-    }
+/* CAPTION */
+.caption { display: inline-block; background: #FFE566; border: 2px solid var(--ink); border-radius: 100px; padding: 3px 12px; font-family: var(--fb); font-size: 11px; font-style: italic; color: var(--ink); margin-bottom: 12px; line-height: 1.4; }
+.panel.dark .caption { background: var(--ink); border-color: #FFE566; color: #FFE566; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.25rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(250,247,242,0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.85rem;
-      color: var(--ink-muted);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
+/* TYPE */
+.panel-title { font-family: var(--fh); font-size: clamp(24px, 4vw, 38px); letter-spacing: -0.02em; line-height: 1.0; color: var(--ink); }
+.panel.dark .panel-title { color: var(--paper); }
+.panel-sub { font-size: 13px; color: var(--ink-dim); margin-top: 6px; font-style: italic; }
+.panel.dark .panel-sub { color: rgba(250,247,242,0.6); }
+.body-text { font-size: 14px; color: var(--ink); line-height: 1.85; max-width: 600px; font-family: 'Playfair Display', serif; }
+.panel.dark .body-text { color: rgba(250,247,242,0.85); }
+.eyeline { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose); margin-bottom: 8px; font-family: var(--fb); }
+.rule { height: 2px; background: var(--ink); margin: 14px 0; }
+.panel.dark .rule { background: rgba(253,248,239,0.2); }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 9rem 3rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -15%; right: -8%;
-      width: 580px; height: 580px;
-      background: radial-gradient(circle, rgba(193,122,90,0.13) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 5%; left: -5%;
-      width: 380px; height: 380px;
-      background: radial-gradient(circle, rgba(139,158,136,0.11) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-inner { max-width: 820px; }
+/* TAG */
+.tag { display: inline-block; padding: 2px 10px; border: 2px solid var(--ink); border-radius: 100px; font-size: 10px; font-family: var(--fb); text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink); background: #fff; margin-right: 4px; margin-top: 8px; }
+.tag.rose   { background: #FFB3C0; border-color: var(--ink); color: var(--ink); }
+.tag.sage   { background: #B8E6C0; border-color: var(--ink); color: var(--ink); }
+.tag.gold   { background: #FFE566; border-color: var(--ink); color: var(--ink); }
+.panel.dark .tag { border-color: rgba(253,248,239,0.5); color: var(--paper); background: transparent; }
+.panel.dark .tag.rose { background: rgba(212,96,122,0.25); border-color: #FFB3C0; color: #FFB3C0; }
 
-    .hero-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--terracotta);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.1s;
-    }
+/* LIVE DOT */
+.live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--sage); margin-right: 5px; animation: liveblink 1.4s infinite; vertical-align: middle; position: relative; top: -1px; }
+@keyframes liveblink { 0%,100%{opacity:1;} 50%{opacity:0.15;} }
 
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-      margin-bottom: 1.25rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.2s;
-    }
+/* STATUS DOT */
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #FFB3C0; margin-right: 6px; animation: liveblink 2.5s infinite; vertical-align: middle; position: relative; top: -1px; }
 
-    .hero-name em {
-      font-style: italic;
-      color: var(--terracotta);
-    }
+/* ROSE BUTTON */
+.rose-btn { display: inline-block; background: #FFB3C0; border: 2px solid var(--ink); border-radius: 100px; padding: 8px 20px; font-family: var(--fb); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); text-decoration: none; cursor: pointer; transition: background 0.1s; margin-top: 12px; box-shadow: 2px 2px 0px var(--ink); }
+.rose-btn:hover { background: #FFE566; }
 
-    .hero-tagline {
-      font-size: 1.05rem;
-      color: var(--ink-muted);
-      max-width: 520px;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.35s;
-    }
+/* LINKS */
+a.ink-link { color: var(--rose); text-decoration: none; border-bottom: 1.5px solid var(--rose); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--fb); transition: opacity 0.1s; }
+a.ink-link:hover { opacity: 0.7; }
+.panel.dark a.ink-link { color: #FFB3C0; border-color: #FFB3C0; }
+.card.dark a.ink-link  { color: #FFB3C0; border-color: #FFB3C0; }
 
-    .hero-tagline strong {
-      color: var(--ink-light);
-      font-weight: 500;
-    }
+/* HEADER */
+.header-name-panel { background: var(--paper); border: var(--bdr); border-radius: var(--radius); padding: 28px 28px 22px; box-shadow: 4px 4px 0px var(--ink); }
+.site-name { font-family: var(--fh); font-size: clamp(44px, 9vw, 80px); letter-spacing: -0.03em; line-height: 0.92; color: var(--ink); font-style: italic; }
+.site-tagline { margin-top: 12px; font-size: 13px; font-style: italic; color: var(--ink-dim); max-width: 560px; line-height: 1.65; font-family: var(--fb); }
+.site-links { margin-top: 14px; display: flex; gap: 14px; flex-wrap: wrap; }
 
-    .hero-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.5s;
-    }
+/* NAV */
+.nav-bar { background: #FFE566; border: var(--bdr); border-radius: var(--radius); display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; overflow: hidden; box-shadow: 3px 3px 0px var(--ink); }
+.nav-btn { font-family: var(--fb); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; background: transparent; border: none; border-radius: 7px; color: var(--ink-dim); cursor: pointer; transition: background 0.12s, color 0.12s; white-space: nowrap; font-weight: 600; }
+.nav-btn:hover { background: rgba(26,18,8,0.08); color: var(--ink); }
+.nav-btn.active { background: var(--ink); color: #FFE566; border-radius: 7px; }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.4rem;
-      border-radius: 100px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--ink);
-      color: var(--cream);
-    }
-    .btn-primary:hover { background: var(--ink-light); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      color: var(--ink);
-      border: 1.5px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--ink-muted); transform: translateY(-1px); }
+/* SECTIONS */
+.section { display: none; flex-direction: column; gap: var(--gap); }
 
-    .hero-status {
-      margin-top: 3.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.65s;
-    }
-    .status-item { display: flex; flex-direction: column; gap: 0.2rem; }
-    .status-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--ink-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .status-value { font-size: 0.9rem; color: var(--ink-light); font-weight: 500; }
-    .status-dot {
-      display: inline-block;
-      width: 7px; height: 7px;
-      background: var(--sage);
-      border-radius: 50%;
-      margin-right: 0.4rem;
-      animation: pulse 2s infinite;
-    }
+/* GRIDS */
+.grid-2   { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.grid-3   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
+.grid-5   { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap); }
 
-    /* ── SECTIONS ── */
-    section {
-      padding: 6rem 3rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--terracotta);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 2rem;
-    }
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      margin: 0 auto;
-    }
+/* CARD */
+.card { background: var(--paper); border: var(--bdr); border-radius: var(--radius); padding: 18px 18px 16px; box-shadow: 3px 3px 0px var(--ink); }
+.card.dark { background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0px rgba(0,0,0,0.3); }
+.card.mid  { background: var(--paper2); }
+.card-eyeline { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 6px; font-family: var(--fb); font-weight: 700; }
+.card.dark .card-eyeline { color: #FFB3C0; }
+.card-title { font-family: var(--fh); font-size: 18px; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 5px; line-height: 1.15; }
+.card.dark .card-title { color: var(--paper); }
+.card-body { font-size: 13px; color: var(--ink-dim); line-height: 1.7; }
+.card.dark .card-body { color: rgba(253,248,239,0.7); }
 
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-    .about-text p {
-      color: var(--ink-light);
-      margin-bottom: 1.25rem;
-      font-size: 1rem;
-    }
-    .about-text p:last-child { margin-bottom: 0; }
+/* LIST */
+.list-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 2px solid rgba(26,18,8,0.1); }
+.list-item:last-child { border-bottom: none; }
+.list-num { font-family: var(--fb); font-size: 13px; color: var(--rose); min-width: 24px; line-height: 1.6; flex-shrink: 0; font-weight: 700; }
+.list-title { font-family: var(--fh); font-size: 18px; letter-spacing: -0.01em; color: var(--ink); line-height: 1.1; margin-bottom: 4px; }
+.list-sub { font-size: 12px; font-style: italic; color: var(--ink-dim); margin-top: 3px; font-family: var(--fb); }
+.list-note { font-size: 13px; color: var(--ink-dim); margin-top: 4px; line-height: 1.75; font-family: var(--fb); }
+.list-tags { margin-top: 6px; }
 
-    .about-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-    .sidebar-card {
-      background: var(--warm-white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-    }
-    .sidebar-card-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--ink-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.75rem;
-    }
-    .sidebar-card-value {
-      font-size: 0.92rem;
-      color: var(--ink-light);
-      line-height: 1.6;
-    }
+/* FOOTER */
+.footer { background: var(--ink); border: var(--bdr); border-radius: var(--radius); padding: 14px 22px; display: flex; justify-content: flex-end; align-items: center; box-shadow: 3px 3px 0px rgba(0,0,0,0.3); }
+.footer-text { font-family: var(--fb); font-size: 11px; color: rgba(253,248,239,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* ── RIGHT NOW ── */
-    .now-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-      margin-top: 0.5rem;
-    }
-    .now-card {
-      background: var(--warm-white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .now-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(28,25,23,0.07); }
-    .now-card-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--terracotta);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.6rem;
-    }
-    .now-card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
-    }
-    .now-card-desc { font-size: 0.875rem; color: var(--ink-muted); }
-    .now-badge {
-      display: inline-block;
-      margin-top: 0.75rem;
-      padding: 0.2rem 0.75rem;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-    }
-    .badge-active { background: rgba(139,158,136,0.15); color: var(--sage); }
-    .badge-building { background: rgba(193,122,90,0.12); color: var(--terracotta); }
-    .badge-learning { background: rgba(201,169,110,0.15); color: #9A7A40; }
+/* LIVE DOT */
+.live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--sage); margin-right: 5px; animation: liveblink 1.4s infinite; vertical-align: middle; position: relative; top: -1px; }
+@keyframes liveblink { 0%,100%{opacity:1;} 50%{opacity:0.15;} }
 
-    /* ── WORK ── */
-    .work-list { display: flex; flex-direction: column; gap: 0; }
-    .work-item {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 2rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-    .work-item:first-child { border-top: 1px solid var(--border); }
-    .work-meta { padding-top: 0.2rem; }
-    .work-period {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-      line-height: 1.5;
-    }
-    .work-company {
-      font-size: 0.8rem;
-      color: var(--terracotta);
-      margin-top: 0.3rem;
-      font-weight: 500;
-    }
-    .work-role {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-    .work-desc { font-size: 0.9rem; color: var(--ink-muted); max-width: 540px; }
+/* STATUS DOT */
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--rose); margin-right: 6px; animation: liveblink 2.5s infinite; vertical-align: middle; position: relative; top: -1px; }
 
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 1.5rem;
-    }
-    .project-card {
-      background: var(--warm-white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: transform 0.25s, box-shadow 0.25s;
-      display: flex;
-      flex-direction: column;
-    }
-    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(28,25,23,0.08); }
-    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      padding: 0.2rem 0.65rem;
-      border-radius: 100px;
-      background: rgba(28,25,23,0.06);
-      color: var(--ink-muted);
-      letter-spacing: 0.04em;
-    }
-    .project-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      margin-bottom: 0.6rem;
-      line-height: 1.25;
-    }
-    .project-desc { font-size: 0.875rem; color: var(--ink-muted); flex: 1; }
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      margin-top: 1.25rem;
-      font-size: 0.825rem;
-      color: var(--terracotta);
-      text-decoration: none;
-      font-weight: 500;
-      transition: gap 0.2s;
-    }
-    .project-link:hover { gap: 0.55rem; }
+/* ROSE BUTTON */
+.rose-btn { display: inline-block; background: var(--rose); border: none; border-radius: 100px; padding: 8px 20px; font-family: var(--fb); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-decoration: none; cursor: pointer; transition: opacity 0.15s; margin-top: 12px; }
+.rose-btn:hover { opacity: 0.85; }
 
-    /* ── FUN ── */
-    .fun-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    .fun-block-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: var(--ink);
-    }
-    .fun-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .fun-list li {
-      font-size: 0.9rem;
-      color: var(--ink-light);
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-    }
-    .fun-list li::before {
-      content: '—';
-      color: var(--terracotta);
-      font-size: 0.75rem;
-      flex-shrink: 0;
-    }
-    .fun-note {
-      margin-top: 0.4rem;
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-      font-style: italic;
-      padding-left: 1.2rem;
-    }
+/* LINKS */
+a.ink-link { color: var(--rose); text-decoration: none; border-bottom: 1px solid rgba(184,122,142,0.4); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--fb); transition: opacity 0.1s; }
+a.ink-link:hover { opacity: 0.7; }
+.panel.dark a.ink-link { color: var(--rose); border-color: rgba(184,122,142,0.4); }
+.card.dark a.ink-link  { color: var(--rose); border-color: rgba(184,122,142,0.4); }
 
-    /* ── TESTIMONIALS ── */
-    .testimonials-grid { display: flex; flex-direction: column; gap: 1.5rem; }
-    .testimonial-card {
-      background: var(--warm-white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 2rem 2.25rem;
-      position: relative;
-    }
-    .testimonial-card::before {
-      content: '"';
-      font-family: 'Playfair Display', serif;
-      font-size: 5rem;
-      color: var(--blush);
-      position: absolute;
-      top: -0.5rem;
-      left: 1.5rem;
-      line-height: 1;
-    }
-    .testimonial-text {
-      font-size: 0.95rem;
-      color: var(--ink-light);
-      line-height: 1.8;
-      margin-top: 1.25rem;
-      margin-bottom: 1.25rem;
-      font-style: italic;
-    }
-    .testimonial-author { font-weight: 500; font-size: 0.875rem; color: var(--ink); }
-    .testimonial-role { font-size: 0.8rem; color: var(--ink-muted); }
+/* HEADER */
+.header-name-panel { background: var(--paper); border: var(--bdr); border-radius: var(--radius); padding: 28px 28px 22px; }
+.site-name { font-family: var(--fh); font-size: clamp(44px, 9vw, 80px); letter-spacing: -0.03em; line-height: 0.92; color: var(--ink); font-style: italic; }
+.site-tagline { margin-top: 12px; font-size: 13px; font-style: italic; color: var(--ink-dim); max-width: 560px; line-height: 1.65; font-family: var(--fb); }
+.site-links { margin-top: 14px; display: flex; gap: 14px; flex-wrap: wrap; }
 
-    /* ── CONTACT ── */
-    .contact-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .contact-text p { color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
-    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--ink-light);
-      font-size: 0.9rem;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--warm-white);
-      transition: all 0.2s;
-    }
-    .contact-link:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateX(4px); }
-    .contact-icon { font-size: 1rem; width: 20px; text-align: center; }
+/* NAV */
+.nav-bar { background: var(--paper2); border: var(--bdr); border-radius: var(--radius); display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; overflow: hidden; }
+.nav-btn { font-family: var(--fb); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; background: transparent; border: none; border-radius: 10px; color: var(--ink-dim); cursor: pointer; transition: background 0.12s, color 0.12s; white-space: nowrap; }
+.nav-btn:hover { background: rgba(28,25,23,0.07); color: var(--ink); }
+.nav-btn.active { background: var(--ink); color: var(--rose); border-radius: 10px; }
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2.5rem 3rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-      font-family: 'DM Mono', monospace;
-    }
+/* SECTIONS */
+.section { display: none; flex-direction: column; gap: var(--gap); }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+/* GRIDS */
+.grid-2   { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.grid-3   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
+.grid-5   { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap); }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
+/* CARD */
+.card { background: var(--paper); border: var(--bdr); border-radius: var(--radius); padding: 18px 18px 16px; }
+.card.dark { background: #1C1917; color: var(--paper); border-color: rgba(184,122,142,0.15); }
+.card.mid  { background: var(--paper2); }
+.card-eyeline { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 6px; font-family: var(--fb); opacity: 0.8; }
+.card.dark .card-eyeline { color: var(--rose); }
+.card-title { font-family: var(--fh); font-size: 18px; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 5px; line-height: 1.15; }
+.card.dark .card-title { color: var(--paper); }
+.card-body { font-size: 13px; color: var(--ink-dim); line-height: 1.7; }
+.card.dark .card-body { color: rgba(250,247,242,0.65); }
 
-    .typewriter-wrap {
-      display: inline-block;
-      position: relative;
-    }
-    .typewriter {
-      font-style: italic;
-      color: var(--terracotta);
-    }
-    .tw-cursor {
-      display: inline-block;
-      color: var(--terracotta);
-      font-style: normal;
-      animation: blink 0.75s step-end infinite;
-      margin-left: 2px;
-      font-weight: 300;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.25rem; }
-      section { padding: 4rem 1.5rem; }
-      .hero { padding: 8rem 1.5rem 4rem; }
-      .about-grid, .fun-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .work-item { grid-template-columns: 1fr; gap: 0.4rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .hero-status { gap: 1.5rem; }
-    }
-  </style>
+/* LIST */
+.list-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid rgba(28,25,23,0.08); }
+.list-item:last-child { border-bottom: none; }
+.list-num { font-family: var(--fb); font-size: 13px; color: var(--rose); min-width: 24px; line-height: 1.6; flex-shrink: 0; opacity: 0.7; }
+.list-title { font-family: var(--fh); font-size: 18px; letter-spacing: -0.01em; color: var(--ink); line-height: 1.1; margin-bottom: 4px; }
+.list-sub { font-size: 12px; font-style: italic; color: var(--ink-dim); margin-top: 3px; font-family: var(--fb); }
+.list-note { font-size: 13px; color: var(--ink-dim); margin-top: 4px; line-height: 1.75; font-family: var(--fb); }
+.list-tags { margin-top: 6px; }
+
+/* FOOTER */
+.footer { background: #1C1917; border: var(--bdr); border-radius: var(--radius); padding: 14px 22px; display: flex; justify-content: flex-end; align-items: center; }
+.footer-text { font-family: var(--fb); font-size: 11px; color: rgba(250,247,242,0.3); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+  .grid-3, .grid-5 { grid-template-columns: 1fr 1fr; }
+  .nav-btn { font-size: 11px; padding: 9px 10px; }
+}
+@media (max-width: 420px) {
+  .grid-3, .grid-5 { grid-template-columns: 1fr; }
+}
+
+/* HOVER */
+.card, .panel { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.card:hover, .panel:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0px var(--ink); }
+
+/* TYPEWRITER CURSOR */
+.typewriter-cursor { display: inline-block; width: 3px; background: var(--ink); margin-left: 3px; animation: cur-blink 0.7s step-end infinite; vertical-align: baseline; position: relative; top: -4px; }
+@keyframes cur-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* READING TIMER */
+#reading-timer { display: none; font-family: var(--fb); font-size: 11px; color: rgba(250,247,242,0.35); letter-spacing: 0.06em; text-transform: uppercase; margin-right: auto; animation: fadein 1s ease; }
+@keyframes fadein { from{opacity:0;} to{opacity:1;} }
+</style>
 </head>
 <body>
+<div class="page">
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Aditee Kulkarni</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#now">Now</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#fun">Beyond Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-inner">
-    <p class="hero-label">Hi, I am Aditee 👋</p>
-    <h1 class="hero-name">Always <span class="typewriter-wrap"><span class="typewriter" id="tw"></span><span class="tw-cursor">|</span></span></h1>
-    <p class="hero-tagline">
-      Graduate student in <strong>Biotechnology at SJSU</strong>, with a background in biological sciences, chemical engineering, and product management. I sit at the intersection of science and strategy — and I find that to be a pretty exciting place to be.
-    </p>
-    <div class="hero-links">
-      <a href="#contact" class="btn btn-primary">Get in touch</a>
-      <a href="https://www.linkedin.com/in/aditee-kulkarni/" target="_blank" class="btn btn-outline">LinkedIn →</a>
+  <!-- HEADER -->
+  <div class="header-name-panel">
+    <div class="site-name" id="site-name"></div>
+    <div class="site-tagline">
+      Always curious. Always learning. Always building.
     </div>
-    <div class="hero-status">
-      <div class="status-item">
-        <span class="status-label">Location</span>
-        <span class="status-value">San Jose, CA</span>
+    <div class="site-links">
+      <a href="mailto:curiouslyaditee@gmail.com" class="ink-link">Email</a>
+      <a href="https://www.linkedin.com/in/aditee-kulkarni/" class="ink-link" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-bar">
+    <button class="nav-btn" onclick="switchTab('about')">About</button>
+    <button class="nav-btn" onclick="switchTab('projects')">Projects</button>
+    <button class="nav-btn" onclick="switchTab('work')">CV &amp; Work</button>
+    <button class="nav-btn" onclick="switchTab('reading')">Reading</button>
+    <button class="nav-btn" onclick="switchTab('beyond')">Beyond Work</button>
+  </nav>
+
+  <!-- ═══ ABOUT ═══ -->
+  <div class="section" id="section-about">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-title">Who I Am</div>
+        <div class="rule"></div>
+        <div class="body-text">
+          Dual degree in biology and chemical engineering from BITS Pilani. First PM at an early-stage startup — no playbook, a lot of figuring things out. Now doing my Master's in Biotechnology at SJSU, combining bench science with supply chain, regulatory strategy, and how therapies actually reach patients.<br><br>
+          What pulls me forward: the gap between scientific progress and operational reality. The science often works. The systems around it do not always keep up. That is the problem I want to work on.<br><br>
+          Outside of that: language nerd, perpetual cafe-hopper, always reading about how brains work.
+        </div>
       </div>
-      <div class="status-item">
-        <span class="status-label">Currently</span>
-        <span class="status-value">MBT @ SJSU, 2025–2027</span>
+      <div class="panel dark">
+        <div class="caption">Right now</div>
+        <div class="panel-title" style="font-size:20px;">At a Glance</div>
+        <div class="rule"></div>
+        <div style="font-size:13px; line-height:2.2; color:rgba(253,248,239,0.85); font-family:var(--fb);">
+          <div><span style="color:#FFB3C0;display:inline-block;min-width:85px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Location</span>San Jose, CA</div>
+          <div><span style="color:#FFB3C0;display:inline-block;min-width:85px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Program</span>MBT @ SJSU</div>
+          <div><span style="color:#FFB3C0;display:inline-block;min-width:85px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Background</span>BITS Pilani</div>
+          <div><span style="color:#FFB3C0;display:inline-block;min-width:85px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Status</span>Open <span class="status-dot"></span></div>
+          <div><span style="color:#FFB3C0;display:inline-block;min-width:85px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Updated</span>March 2026</div>
+        </div>
       </div>
-      <div class="status-item">
-        <span class="status-label">Status</span>
-        <span class="status-value"><span class="status-dot"></span>Open to internships</span>
+    </div>
+
+    <div class="grid-5">
+      <div class="card">
+        <div class="card-eyeline">Currently doing</div>
+        <div class="card-title">MBT at SJSU</div>
+        <div class="card-body">Regulatory affairs, supply chain, and biotech business strategy. Learning how science actually gets to people.</div>
+        <span class="tag sage">Active</span>
       </div>
-      <div class="status-item">
-        <span class="status-label">Background</span>
-        <span class="status-value">BITS Pilani — Dual Degree</span>
+      <div class="card mid">
+        <div class="card-eyeline">Currently doing</div>
+        <div class="card-title">RAPS Ambassador</div>
+        <div class="card-body">SF Bay Area Chapter student ambassador — outreach, quarterly newsletter, and chapter communications.</div>
+        <span class="tag sage">Active</span>
+      </div>
+      <div class="card">
+        <div class="card-eyeline">Currently presenting</div>
+        <div class="card-title">MBAA 2026</div>
+        <div class="card-body">Two Iovance Biotherapeutics case studies co-authored with Prof. George Whaley. SCR scholarship recipient.</div>
+        <span class="tag rose">Presenting</span>
+      </div>
+      <div class="card mid">
+        <div class="card-eyeline">Upcoming</div>
+        <div class="card-title">Student Research Day</div>
+        <div class="card-body">Poster presentation on SRA-RAG at SJSU's annual College of Science research showcase. April 17, 2026.</div>
+        <span class="tag gold">Upcoming</span>
+      </div>
+      <div class="card">
+        <div class="card-eyeline">Looking for</div>
+        <div class="card-title">Biotech Internships</div>
+        <div class="card-body">PM, regulatory affairs, and operations in life sciences. I get both the science and the strategy.</div>
+        <span class="tag rose">Open</span>
       </div>
     </div>
   </div>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <div class="section" id="section-projects">
+    <div class="panel mid">
+      <div class="caption">Things built out of curiosity and rigor</div>
+      <div class="panel-title">Projects</div>
+      <div class="panel-sub">Research, case work, and experiments that got out of hand.</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyeline">Bioinformatics · RAG · Python</div>
+        <div class="card-title">SRA-RAG: Genomic Search Engine</div>
+        <div class="card-body">A Retrieval-Augmented Generation system for querying the NCBI Sequence Read Archive using natural language — built in collaboration with Dr. Lee's lab and a teammate. Ask it "What mouse studies used RNA-seq?" and it finds them. Currently in progress.</div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="tag"><span class="live-dot"></span>In Progress</span>
+          <a href="mailto:curiouslyaditee@gmail.com" class="ink-link">Ask me &#8594;</a>
+        </div>
+      </div>
+      <div class="card mid">
+        <div class="card-eyeline">Biotech Strategy · Regulatory · Case Study</div>
+        <div class="card-title">Iovance Biotherapeutics — Amtagvi</div>
+        <div class="card-body">A decision-oriented case study examining the strategic, financial, and organizational challenges facing Iovance after FDA approval of Amtagvi — the first tumor-infiltrating lymphocyte therapy for advanced melanoma. Explores how a company should allocate limited resources across commercialization, manufacturing, and pipeline development when the science works but the systems around it are under pressure. Co-authored with Prof. George Whaley, presented at MBAA 2026.</div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="tag rose">Presented</span>
+          <a href="mailto:curiouslyaditee@gmail.com" class="ink-link">Ask me &#8594;</a>
+        </div>
+      </div>
+      <div class="card mid">
+        <div class="card-eyeline">Supply Chain · Operations · Market Modeling</div>
+        <div class="card-title">Supply Chain Design for a Biologics Company</div>
+        <div class="card-body">Designed a full end-to-end supply chain for a monoclonal antibody therapy entering Phase III — from raw materials to patient delivery across seven stages. Led the market modeling and demand forecasting, building three scenarios (conservative, base, optimistic) based on different penetration assumptions. Bioreactor capacity at the API manufacturing stage turned out to be the primary bottleneck — counterintuitive, and exactly the kind of thing that matters.</div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="tag">Complete</span>
+          <a href="mailto:curiouslyaditee@gmail.com" class="ink-link">Ask me &#8594;</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-eyeline">AR · Event Design · Creative Tech</div>
+        <div class="card-title">India's First Online College Festival</div>
+        <div class="card-body">As Secretary of BITS Pilani's Creative Activities Club, helped design and host the institution's first fully virtual festival — including an augmented reality gallery. A good reminder that project management and creativity are not opposites.</div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="tag">Complete</span>
+          <a href="mailto:curiouslyaditee@gmail.com" class="ink-link">Ask me &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CV & WORK ═══ -->
+  <div class="section" id="section-work">
+    <div class="panel dark">
+      <div class="caption">The official version — for those who need it</div>
+      <div class="panel-title">CV &amp; Work</div>
+      <div class="panel-sub">What I do, what I know, what I have built.</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyeline">Current</div>
+        <div class="card-title">Graduate Student — MBT, SJSU</div>
+        <div class="card-body">Regulatory affairs (FDA pathways, GMP, 510(k)), operations & supply chain, and biotech business strategy. Co-authoring case studies on TIL cell therapy commercialization. Hands-on lab coursework covering mammalian cell culture, PCR, protein expression, Western blots, and CRISPR.</div>
+        <div style="margin-top:10px;"><span class="tag sage">Aug 2025 – Present</span></div>
+      </div>
+      <div class="card mid">
+        <div class="card-eyeline">Current</div>
+        <div class="card-title">RAPS SF Bay Area Ambassador</div>
+        <div class="card-body">Student ambassador for the Regulatory Affairs Professionals Society. Community outreach, chapter engagement, drafting the quarterly newsletter, and designing promotional materials for member communications.</div>
+        <div style="margin-top:10px;"><span class="tag sage">Mar 2026 – Present</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card mid">
+        <div class="card-eyeline">Previous</div>
+        <div class="card-title">Associate Product Manager</div>
+        <div class="card-body">Probus Smart Things — First and only PM on the team. Owned the full product lifecycle from PRDs to wireframes to shipped features. The project I am most proud of is a task assignment system that ended up as the basis for the company's first software patent application.</div>
+        <div style="margin-top:10px;"><span class="tag">Jul 2023 – Jan 2025</span></div>
+      </div>
+      <div class="card">
+        <div class="card-eyeline">Previous</div>
+        <div class="card-title">Program Management Intern</div>
+        <div class="card-body">JioCinema — Built standardized reporting templates that converted raw meeting notes into structured summaries with clear ownership and action items, used by the CTO across 12+ initiatives.</div>
+        <div style="margin-top:10px;"><span class="tag">Jan 2023 – Jul 2023</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="card-eyeline">Previous</div>
+      <div class="panel-title" style="font-size:24px;">Business Analyst Intern — Udaan</div>
+      <div class="rule"></div>
+      <div class="body-text" style="font-size:13px;">First industry role at a Series B agri-commerce marketplace. Learned to interpret business metrics, work cross-functionally, and deliver accurate impact-driven analysis — all from scratch, and apparently without any mistakes (per my manager's words, not mine).</div>
+      <div style="margin-top:10px;"><span class="tag">2022</span></div>
+    </div>
+    <div class="panel">
+      <div class="card-eyeline">Education</div>
+      <div class="panel-title" style="font-size:24px;">BITS Pilani &mdash; M.Sc. Biological Sciences + B.E. Chemical Engineering</div>
+      <div class="rule"></div>
+      <div class="body-text" style="font-size:13px;">Integrated Dual Degree &nbsp;·&nbsp; San Jose State University — M.S. Biotechnology, 2025–2027</div>
+    </div>
+    <div class="panel">
+      <div class="card-eyeline">Skills</div>
+      <div class="panel-title" style="font-size:24px;">What I Am Good At</div>
+      <div class="rule"></div>
+      <div class="body-text" style="font-size:13px;">Project management, regulatory affairs, biotech strategy, product thinking, supply chain design, cross-functional communication, and asking the questions nobody else thought to ask.</div>
+      <div style="margin-top:12px;">
+        <span class="tag rose">Project Management</span>
+        <span class="tag rose">Regulatory Affairs</span>
+        <span class="tag rose">Biotech Strategy</span>
+        <span class="tag rose">Product Thinking</span>
+        <span class="tag rose">Supply Chain</span>
+        <span class="tag rose">Asking the Right Questions</span>
+      </div>
+      <div style="margin-top:16px;">
+        <a href="https://www.linkedin.com/in/aditee-kulkarni/" target="_blank" class="rose-btn">More on LinkedIn &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ READING ═══ -->
+  <div class="section" id="section-reading">
+    <div class="panel dark">
+      <div class="caption">Always working through something</div>
+      <div class="panel-title">On My Nightstand</div>
+      <div class="panel-sub">What I am reading, and what I think of it.</div>
+    </div>
+    <div class="panel">
+      <div class="list-item">
+        <div class="list-num">01</div>
+        <div>
+          <div class="list-title">The Body Keeps the Score</div>
+          <div class="list-sub">Bessel van der Kolk</div>
+          <div class="list-note">On how trauma lives in the body, not just the mind. Completely changed how I think about the relationship between physical and psychological health. Dense, important, and surprisingly hard to put down.</div>
+          <div class="list-tags"><span class="tag rose">Neuroscience</span><span class="tag rose">Psychology</span><span class="tag">Currently Reading</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">02</div>
+        <div>
+          <div class="list-title">Maybe You Should Talk to Someone</div>
+          <div class="list-sub">Lori Gottlieb</div>
+          <div class="list-note">A therapist who goes to therapy. Told from both sides of the couch — warm, honest, and quietly profound. One of those books that makes you feel seen without even trying to.</div>
+          <div class="list-tags"><span class="tag rose">Psychology</span><span class="tag rose">Memoir</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">03</div>
+        <div>
+          <div class="list-title">Thinking, Fast and Slow</div>
+          <div class="list-sub">Daniel Kahneman</div>
+          <div class="list-note">How our brains actually make decisions — and how often they get it wrong. Feels relevant to everything, from clinical AI oversight to why I impulse-buy things at cafes.</div>
+          <div class="list-tags"><span class="tag rose">Neuroscience</span><span class="tag rose">Behaviour</span><span class="tag">To Read</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">04</div>
+        <div>
+          <div class="list-title">The Gene: An Intimate History</div>
+          <div class="list-sub">Siddhartha Mukherjee</div>
+          <div class="list-note">Science writing that reads like a novel. A sweeping history of genetics that makes you feel the weight of what we have discovered — and everything we still do not understand.</div>
+          <div class="list-tags"><span class="tag rose">Genetics</span><span class="tag rose">Science History</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">05</div>
+        <div>
+          <div class="list-title">The Percy Jackson Series</div>
+          <div class="list-sub">Rick Riordan</div>
+          <div class="list-note">Yes, it is on this list. No, I will not be taking questions. Greek mythology, found family, a twelve-year-old with the weight of Olympus on his shoulders — genuinely one of the best things I have ever read. Some books are just good. This is one of them.</div>
+          <div class="list-tags"><span class="tag rose">Fiction</span><span class="tag rose">Actually Just Fun</span><span class="tag">No Further Explanation</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BEYOND WORK ═══ -->
+  <div class="section" id="section-beyond">
+    <div class="panel mid">
+      <div class="caption">The stuff that makes me, me</div>
+      <div class="panel-title">Beyond Work</div>
+      <div class="panel-sub">I think the most interesting people are curious about everything, not just their field.</div>
+    </div>
+    <div class="panel">
+      <div class="list-item">
+        <div class="list-num">01</div>
+        <div>
+          <div class="list-title">Korean — Fluent</div>
+          <div class="list-sub">Languages</div>
+          <div class="list-note">Speak, read, and write. Started from absolute zero. Best proof I have that consistency beats talent every time.</div>
+          <div class="list-tags"><span class="tag rose">Languages</span><span class="tag">Fluent</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">02</div>
+        <div>
+          <div class="list-title">Japanese — Beginner</div>
+          <div class="list-sub">Languages</div>
+          <div class="list-note">Actively learning. One language was apparently not enough.</div>
+          <div class="list-tags"><span class="tag rose">Languages</span><span class="tag">In Progress</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">03</div>
+        <div>
+          <div class="list-title">Chess</div>
+          <div class="list-sub">2026 goal</div>
+          <div class="list-note">Picked it up this year. Still losing a lot. Learning even more.</div>
+          <div class="list-tags"><span class="tag rose">Games</span><span class="tag">2026</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">04</div>
+        <div>
+          <div class="list-title">Swimming</div>
+          <div class="list-sub">Movement</div>
+          <div class="list-note">Probably the best way to think through a hard problem. There is something about being underwater that clears everything out.</div>
+          <div class="list-tags"><span class="tag rose">Movement</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">05</div>
+        <div>
+          <div class="list-title">Hiking</div>
+          <div class="list-sub">Outdoors</div>
+          <div class="list-note">The Bay Area has no shortage of good trails — always exploring.</div>
+          <div class="list-tags"><span class="tag rose">Outdoors</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">06</div>
+        <div>
+          <div class="list-title">Discovering New Cafes</div>
+          <div class="list-sub">Food & Coffee</div>
+          <div class="list-note">Always hunting for a good flat white and decent wifi. San Jose has more hidden gems than people think.</div>
+          <div class="list-tags"><span class="tag rose">Coffee</span><span class="tag rose">San Jose</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">07</div>
+        <div>
+          <div class="list-title">How Brains Work</div>
+          <div class="list-sub">Neuroscience & Psychology</div>
+          <div class="list-note">Fascinated by why people do what they do — decision-making, behaviour, cognition. Brains are weird and wonderful and I cannot stop reading about them.</div>
+          <div class="list-tags"><span class="tag rose">Neuroscience</span><span class="tag rose">Psychology</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span id="reading-timer"></span>
+    <div class="footer-text">Made with curiosity in San Jose, CA &nbsp;·&nbsp; © 2026 Aditee Kulkarni</div>
+  </div>
+
 </div>
 
-<div class="section-divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="reveal">
-    <p class="section-label">Who I Am</p>
-    <h2 class="section-title">Science meets strategy,<br>with people at the center.</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          I did not take the straightforward path — and I am glad for it. I started with an integrated dual degree at BITS Pilani, studying Biological Sciences and Chemical Engineering at the same time. I was always pulled in two directions: the rigorous, methodical world of science, and the messy, human world of how things get built and shipped.
-        </p>
-        <p>
-          That tension became my superpower. I went from researching biosensors and pigment purification in the lab to managing product roadmaps and shipping features to thousands of users. I have worked at a startup, interned at a streaming giant, and now I am back in grad school — this time at the precise intersection of biotech, regulatory science, and business.
-        </p>
-        <p>
-          What drives me is simple: I want to understand how things work deeply enough to make them work better. Whether that is a genomic search system, a cancer therapy supply chain, or a product that millions of people use — I show up with curiosity, structure, and a lot of follow-through.
-        </p>
-      </div>
-      <div class="about-sidebar">
-        <div class="sidebar-card">
-          <p class="sidebar-card-label">Education</p>
-          <p class="sidebar-card-value">
-            <strong>M.S. Biotechnology</strong><br>San Jose State University<br>
-            <span style="color:var(--ink-muted);font-size:0.85rem">2025 – 2027</span>
-          </p>
-          <br>
-          <p class="sidebar-card-value">
-            <strong>M.Sc. Biological Sciences + B.E. Chemical Engineering</strong><br>BITS Pilani<br>
-            <span style="color:var(--ink-muted);font-size:0.85rem">Integrated Dual Degree</span>
-          </p>
-        </div>
-        <div class="sidebar-card">
-          <p class="sidebar-card-label">What I bring</p>
-          <p class="sidebar-card-value">
-            Regulatory affairs · Project management · Biotech strategy · Product thinking · Supply chain · Data analysis
-          </p>
-        </div>
-        <div class="sidebar-card">
-          <p class="sidebar-card-label">Languages</p>
-          <p class="sidebar-card-value">
-            English · Hindi · Korean (fluent) · Japanese (beginner)
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- RIGHT NOW -->
-<section id="now">
-  <div class="reveal">
-    <p class="section-label">Right Now</p>
-    <h2 class="section-title">What I am up to<br>these days.</h2>
-    <div class="now-grid">
-      <div class="now-card">
-        <p class="now-card-tag">Academic</p>
-        <p class="now-card-title">MBT at SJSU</p>
-        <p class="now-card-desc">Coursework in regulatory affairs, operations & supply chain management, and biotech business strategy. Learning how science actually gets to people.</p>
-        <span class="now-badge badge-active">Active</span>
-      </div>
-      <div class="now-card">
-        <p class="now-card-tag">Conference</p>
-        <p class="now-card-title">MBAA 2026 Presenter</p>
-        <p class="now-card-desc">Presenting two Iovance Biotherapeutics case studies with Prof. George Whaley at the MBAA 2026 conference, Session 8C. SCR scholarship recipient.</p>
-        <span class="now-badge badge-building">Presenting</span>
-      </div>
-      <div class="now-card">
-        <p class="now-card-tag">Campus Role</p>
-        <p class="now-card-title">Peer Academic Success Coach</p>
-        <p class="now-card-desc">Accepted as PASC with SJSU Housing Services for AY 2026–2027. Supporting fellow students in navigating university life.</p>
-        <span class="now-badge badge-active">Upcoming</span>
-      </div>
-      <div class="now-card">
-        <p class="now-card-tag">Job Search</p>
-        <p class="now-card-title">Open to Internships</p>
-        <p class="now-card-desc">Actively looking for biotech internships in project management, regulatory affairs, and operations. Let's talk if your team could use someone who gets both the science and the strategy.</p>
-        <span class="now-badge badge-learning">Open</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- WORK -->
-<section id="work">
-  <div class="reveal">
-    <p class="section-label">CV & Work</p>
-    <h2 class="section-title">What I have done,<br>and what I have built.</h2>
-    <div class="work-list">
-      <div class="work-item">
-        <div class="work-meta">
-          <p class="work-period">Aug 2025 – Present</p>
-          <p class="work-company">SJSU</p>
-        </div>
-        <div class="work-content">
-          <p class="work-role">Graduate Student, Master of Biotechnology</p>
-          <p class="work-desc">Coursework spanning regulatory affairs (FDA pathways, GMP, 510(k)), operations and supply chain management, and biotech business strategy. Co-authored case studies on Iovance Biotherapeutics' post-approval commercialization of Amtagvi (TIL cell therapy).</p>
-        </div>
-      </div>
-      <div class="work-item">
-        <div class="work-meta">
-          <p class="work-period">Jul 2023 – Jan 2025</p>
-          <p class="work-company">Probus Smart Things</p>
-        </div>
-        <div class="work-content">
-          <p class="work-role">Associate Product Manager</p>
-          <p class="work-desc">Owned product roadmaps, wrote product requirements, created wireframes, and shipped features to users. Bridged engineering and business teams, translating user needs into product decisions.</p>
-        </div>
-      </div>
-      <div class="work-item">
-        <div class="work-meta">
-          <p class="work-period">Jan 2023 – Jul 2023</p>
-          <p class="work-company">JioCinema</p>
-        </div>
-        <div class="work-content">
-          <p class="work-role">Program Management Intern</p>
-          <p class="work-desc">Worked on program coordination at one of India's largest streaming platforms. Developed skills in cross-functional collaboration, stakeholder management, and delivery tracking at scale.</p>
-        </div>
-      </div>
-      <div class="work-item">
-        <div class="work-meta">
-          <p class="work-period">2022</p>
-          <p class="work-company">Udaan</p>
-        </div>
-        <div class="work-content">
-          <p class="work-role">Product / Business Analyst Intern</p>
-          <p class="work-desc">First industry role at a Series B agri-commerce marketplace. Learned to interpret business metrics, work with cross-functional teams, and deliver accurate, impact-driven analysis — all from scratch.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="reveal">
-    <p class="section-label">Projects</p>
-    <h2 class="section-title">Things built out of<br>curiosity and rigor.</h2>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <div class="project-tags">
-          <span class="tag">Bioinformatics</span>
-          <span class="tag">RAG</span>
-          <span class="tag">Python</span>
-          <span class="tag">AI</span>
-        </div>
-        <p class="project-title">SRA-RAG: Genomic Search Engine</p>
-        <p class="project-desc">A Retrieval-Augmented Generation system for querying the NCBI Sequence Read Archive using natural language. Built over 7 weeks (Jan–Mar 2026), the system lets you ask questions like "What mouse studies used RNA-seq?" and returns semantically relevant genomic datasets. Compared embedding models (MiniLM, BGE-base, MPNet-v2) — BGE-base won with ~89% Precision@3.</p>
-        <a href="https://github.com/moongdalhalwaa" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tags">
-          <span class="tag">Biotech Strategy</span>
-          <span class="tag">Case Study</span>
-          <span class="tag">Regulatory</span>
-        </div>
-        <p class="project-title">Iovance Biotherapeutics — Amtagvi Commercialization</p>
-        <p class="project-desc">Two case studies analyzing the post-FDA-approval commercialization challenges of Amtagvi, the first TIL (tumor-infiltrating lymphocyte) cell therapy approved in the US. Co-authored with Prof. George Whaley and presented at MBAA 2026. Bridges regulatory science, supply chain complexity, and market adoption strategy.</p>
-        <a href="#contact" class="project-link">Ask me about this →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tags">
-          <span class="tag">Supply Chain</span>
-          <span class="tag">Market Modeling</span>
-          <span class="tag">Operations</span>
-        </div>
-        <p class="project-title">Cancer Treatment Market Model & Supply Chain Design</p>
-        <p class="project-desc">Designed and modeled a supply chain for a cancer treatment product, incorporating market sizing, demand forecasting, and logistics planning. Applied operations management frameworks from BUS 282B to a real biotech context — connecting science to operational feasibility.</p>
-        <a href="#contact" class="project-link">Ask me about this →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tags">
-          <span class="tag">Creative Tech</span>
-          <span class="tag">AR</span>
-          <span class="tag">Event Design</span>
-        </div>
-        <p class="project-title">India's First Fully Online College Festival</p>
-        <p class="project-desc">As Secretary of BITS Pilani's Creative Activities Club, helped design and host the institution's first fully virtual festival — including an augmented reality gallery. Coordinated across student teams, managed logistics for a completely new format, and made it actually fun. A good reminder that project management and creativity are not opposites.</p>
-        <a href="#contact" class="project-link">Ask me about this →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- BEYOND WORK / FUN -->
-<section id="fun">
-  <div class="reveal">
-    <p class="section-label">Beyond Work</p>
-    <h2 class="section-title">The things that make me,<br><em>me.</em></h2>
-    <p style="color:var(--ink-muted); font-size:0.95rem; max-width:580px; margin-bottom:2.5rem;">
-      I think the most interesting people are the ones who are genuinely curious about everything — not just their field. Here is what I am into when I am not doing science or strategy.
-    </p>
-    <div class="fun-grid">
-      <div>
-        <p class="fun-block-title">Languages &amp; Learning</p>
-        <ul class="fun-list">
-          <li>
-            Korean — I can speak, read, and write it fluently
-            <span class="fun-note">Started from zero. Proof that consistency beats talent.</span>
-          </li>
-          <li>
-            Japanese — beginner, actively learning
-            <span class="fun-note">One language was apparently not enough.</span>
-          </li>
-          <li>
-            Chess — picked it up this year
-            <span class="fun-note">Still losing. Learning a lot.</span>
-          </li>
-          <li>
-            Perpetual student of how things work — science, systems, people
-          </li>
-        </ul>
-      </div>
-      <div>
-        <p class="fun-block-title">Outside &amp; In</p>
-        <ul class="fun-list">
-          <li>
-            Swimming — probably the best way to think through a hard problem
-          </li>
-          <li>
-            Hiking — the Bay Area has no shortage of good trails
-          </li>
-          <li>
-            Discovering new cafes — always on the hunt for a good flat white and good wifi
-          </li>
-          <li>
-            Reading about neuroscience and behavioral psychology
-            <span class="fun-note">Fascinated by why people do what they do — brains are weird and wonderful.</span>
-          </li>
-          <li>
-            Anything that makes me go "huh, I did not know that"
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="reveal">
-    <p class="section-label">Words from People I have Worked With</p>
-    <h2 class="section-title">What others say.</h2>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <p class="testimonial-text">
-          Aditee is someone who takes complete ownership of things. Also, a good team player who takes multiple perspectives and feedback to come up with creative solutions.
-        </p>
-        <p class="testimonial-author">Sainath Bandapalli</p>
-        <p class="testimonial-role">Mentor — Empowering the Next Generation of Problem Solvers</p>
-      </div>
-      <div class="testimonial-card">
-        <p class="testimonial-text">
-          Aditee was able to quickly adapt to the environment and started delivering. She is a quick learner and within no time, she was able to interpret the business impact of different metrics as well as learn nuances of working with different tools and formats. At such an early stage of her career, she was able to maintain accuracy and follow all instructions without any mistakes. Wherever she pursues her career, I am sure she is going to add great value.
-        </p>
-        <p class="testimonial-author">Hari Krishna</p>
-        <p class="testimonial-role">Planning, Strategy & Finance · IIM-A · Prev. Udaan, Swiggy, Deloitte USI</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="reveal">
-    <p class="section-label">Let's Talk</p>
-    <h2 class="section-title">I would love to<br>hear from you.</h2>
-    <div class="contact-inner">
-      <div class="contact-text">
-        <p>
-          Whether you are working on something interesting in biotech, have an internship role that might be a fit, or just want to talk about genomics, brain science, or where to find good coffee in San Jose — my inbox is open.
-        </p>
-        <p>
-          I am especially interested in project management, regulatory affairs, and operations roles in the life sciences space.
-        </p>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:curiouslyaditee@gmail.com" class="contact-link">
-          <span class="contact-icon">✉</span> Email me
-        </a>
-        <a href="https://www.linkedin.com/in/aditee-kulkarni/" target="_blank" class="contact-link">
-          <span class="contact-icon">in</span> LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Aditee Kulkarni &nbsp;·&nbsp; Built with care &nbsp;·&nbsp; San Jose, CA</p>
-</footer>
-
 <script>
-  // Typewriter
-  const words = ['curious.', 'learning.', 'building.'];
-  const tw = document.getElementById('tw');
-  let wi = 0, ci = 0, deleting = false;
-  function type() {
-    const word = words[wi];
-    if (!deleting) {
-      tw.textContent = word.slice(0, ci + 1);
-      ci++;
-      if (ci === word.length) {
-        deleting = true;
-        setTimeout(type, 1400);
-        return;
-      }
-    } else {
-      tw.textContent = word.slice(0, ci - 1);
-      ci--;
-      if (ci === 0) {
-        deleting = false;
-        wi = (wi + 1) % words.length;
-      }
-    }
-    setTimeout(type, deleting ? 60 : 95);
-  }
-  setTimeout(type, 800);
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  reveals.forEach(el => observer.observe(el));
-</script>
+var TABS = ['about','projects','work','reading','beyond'];
 
+function typeClick() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var buf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
+    var data = buf.getChannelData(0);
+    for (var i = 0; i < data.length; i++) {
+      var t = i / ctx.sampleRate;
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-t * 180) * 0.55;
+      data[i] += Math.sin(2 * Math.PI * 1200 * t) * Math.exp(-t * 400) * 0.2;
+    }
+    var src = ctx.createBufferSource();
+    var gain = ctx.createGain();
+    gain.gain.value = 0.35;
+    src.buffer = buf;
+    src.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch(e) {}
+}
+
+function switchTab(id) {
+  for (var i = 0; i < TABS.length; i++) {
+    var sec = document.getElementById('section-' + TABS[i]);
+    sec.style.display = (TABS[i] === id) ? 'flex' : 'none';
+  }
+  var btns = document.getElementsByClassName('nav-btn');
+  for (var j = 0; j < btns.length; j++) {
+    var fn = btns[j].getAttribute('onclick');
+    btns[j].className = (fn && fn.indexOf(id) !== -1) ? 'nav-btn active' : 'nav-btn';
+  }
+  window.scrollTo(0, 0);
+  typeClick();
+}
+
+/* TYPEWRITER on name */
+(function() {
+  var el = document.getElementById('site-name');
+  var lines = ['Aditee', 'Kulkarni'];
+  var full = lines[0] + '\n' + lines[1];
+  var idx = 0;
+  var cur = document.createElement('span');
+  cur.className = 'typewriter-cursor';
+  cur.innerHTML = '&nbsp;';
+  el.appendChild(cur);
+  function type() {
+    if (idx <= full.length) {
+      var txt = full.slice(0, idx);
+      el.innerHTML = txt.replace('\n', '<br>');
+      el.appendChild(cur);
+      idx++;
+      setTimeout(type, idx === 1 ? 400 : 55 + Math.random() * 35);
+    } else {
+      setTimeout(function() { cur.parentNode && cur.parentNode.removeChild(cur); }, 1500);
+    }
+  }
+  setTimeout(type, 200);
+})();
+
+/* READING TIMER */
+(function() {
+  var start = Date.now();
+  var shown = false;
+  var timer = document.getElementById('reading-timer');
+  setInterval(function() {
+    var mins = Math.floor((Date.now() - start) / 60000);
+    var secs = Math.floor(((Date.now() - start) % 60000) / 1000);
+    if ((Date.now() - start) >= 10000 && !shown) { shown = true; timer.style.display = 'block'; }
+    if (shown) { timer.textContent = 'you\'ve been here ' + mins + 'm ' + secs + 's'; }
+  }, 1000);
+})();
+
+switchTab('about');
+</script>
 </body>
 </html>
