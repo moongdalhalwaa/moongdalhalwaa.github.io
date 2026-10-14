@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v15: full-width 1440px two-column, no hi fade -->
+<!-- v16: full-width 1440px two-column, no hi fade, banner click scrolls to banner -->
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -304,7 +304,8 @@ document.querySelectorAll('[data-view]').forEach(function(btn){
     ['work','projects','life','writing','reading','cv'].forEach(function(id){
       document.getElementById('view-'+id).style.display = (id===v) ? 'block' : 'none';
     });
-    window.scrollTo(0,0);
+    var nav = document.querySelector('.view-nav');
+    if (nav) nav.scrollIntoView({behavior:'smooth', block:'start'});
   });
 });
 </script>
